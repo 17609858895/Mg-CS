@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -11,7 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# 🌿 页面样式（标题更小、更轻）
+# 🌿 样式设置
 st.markdown("""
     <style>
     .stApp {
@@ -25,9 +24,9 @@ st.markdown("""
     }
     .custom-title {
         font-size: 1.1rem;
-        margin-bottom: 0.1rem;
-        line-height: 1.4;
         font-weight: 400;
+        line-height: 1.4;
+        margin-bottom: 0.2rem;
         color: #222;
     }
     .stMarkdown h1 + p {
@@ -50,6 +49,15 @@ st.markdown("""
         border: none;
         margin-top: 1.3rem;
     }
+    .stDownloadButton>button {
+        background-color: white;
+        color: #333;
+        font-weight: 500;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+    }
     .stSuccess {
         background-color: #e6f9ed;
         color: #1b5e20;
@@ -69,10 +77,10 @@ def load_model():
 
 model = load_model()
 
-# 🌐 中英切换
+# 🌐 语言切换
 lang = st.radio("🌐 Language / 语言", ["English", "中文"], horizontal=True)
 
-# 语言字典
+# 文本包
 text = {
     "English": {
         "title": "🔬 Machine learning prediction of phosphate adsorption on Mg@SBC/CS",
@@ -106,18 +114,18 @@ text = {
     }
 }[lang]
 
-# 页面内容
-st.markdown(f'<h1 class="custom-title">{text["title"]}</h1>', unsafe_allow_html=True)
+# 🎯 标题 + 描述
+st.markdown(f'<div class="custom-title">{text["title"]}</div>', unsafe_allow_html=True)
 st.markdown(text["description"])
 
-# 输入字段
+# 📥 输入字段
 ads_time = st.number_input(text["input_labels"][0], min_value=0.0, value=120.0, step=1.0)
 pH = st.number_input(text["input_labels"][1], min_value=1.0, max_value=14.0, value=7.0, step=0.1)
 dosage = st.number_input(text["input_labels"][2], min_value=0.0, value=1.0, step=0.1)
 c0 = st.number_input(text["input_labels"][3], min_value=0.0, value=50.0, step=1.0)
 temperature = st.number_input(text["input_labels"][4], min_value=0.0, value=25.0, step=1.0)
 
-# 预测部分
+# 🧠 预测结果
 prediction = None
 df_result = None
 
@@ -135,7 +143,7 @@ if st.button(text["button_predict"]):
         "Predicted Adsorption (mg/g)": round(prediction, 2)
     }])
 
-# 导出 CSV
+# 📁 导出 CSV
 if prediction is not None and df_result is not None:
     towrite = BytesIO()
     df_result.to_csv(towrite, index=False)
