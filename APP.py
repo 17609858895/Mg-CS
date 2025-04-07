@@ -23,8 +23,8 @@ st.markdown("""
         font-family: 'Segoe UI', sans-serif;
     }
     .custom-title {
-        font-size: 1.1rem;
-        font-weight: 400;
+        font-size: 1.5rem;
+        font-weight: 500;
         line-height: 1.4;
         margin-bottom: 0.2rem;
         color: #222;
