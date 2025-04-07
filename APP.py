@@ -23,7 +23,7 @@ st.markdown("""
         font-family: 'Segoe UI', sans-serif;
     }
     h1 {
-        font-size: 1.9rem;
+        font-size: 1.5rem;
         margin-bottom: 0.2rem;
         line-height: 1.3;
         font-weight: 600;
