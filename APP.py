@@ -10,7 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# 🌿 样式：小清新 + 自定义标题大小
+# 🌿 样式：字体更协调，标题更紧凑
 st.markdown("""
     <style>
     .stApp {
@@ -23,10 +23,10 @@ st.markdown("""
         font-family: 'Segoe UI', sans-serif;
     }
     .custom-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.2rem;
-        line-height: 1.3;
-        font-weight: 600;
+        font-size: 1.25rem;
+        margin-bottom: 0.1rem;
+        line-height: 1.4;
+        font-weight: 500;
         color: #222;
     }
     .stMarkdown h1 + p {
@@ -61,14 +61,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 模型加载
+# 📦 加载模型
 @st.cache_resource
 def load_model():
     return joblib.load("Catboost.pkl")
 
 model = load_model()
 
-# 🌐 中英切换
+# 🌐 中英文切换
 lang = st.radio("🌐 Language / 语言", ["English", "中文"], horizontal=True)
 
 # 文本内容（语言包）
@@ -109,14 +109,14 @@ text = {
 st.markdown(f'<h1 class="custom-title">{text["title"]}</h1>', unsafe_allow_html=True)
 st.markdown(text["description"])
 
-# 输入字段
+# 📥 输入字段
 ads_time = st.number_input(text["input_labels"][0], min_value=0.0, value=120.0, step=1.0)
 pH = st.number_input(text["input_labels"][1], min_value=1.0, max_value=14.0, value=7.0, step=0.1)
 dosage = st.number_input(text["input_labels"][2], min_value=0.0, value=1.0, step=0.1)
 c0 = st.number_input(text["input_labels"][3], min_value=0.0, value=50.0, step=1.0)
 temperature = st.number_input(text["input_labels"][4], min_value=0.0, value=25.0, step=1.0)
 
-# 🧠 预测 & 导出数据
+# 🔍 预测 + 构造 DataFrame
 prediction = None
 df_result = None
 
@@ -125,7 +125,7 @@ if st.button(text["button_predict"]):
     prediction = model.predict(input_data)[0]
     st.success(f"{text['result_prefix']} **{prediction:.2f} mg/g**")
 
-    # 构建结果 DataFrame
+    # 结果整理为 DataFrame
     df_result = pd.DataFrame([{
         "Time": ads_time,
         "pH": pH,
@@ -135,7 +135,7 @@ if st.button(text["button_predict"]):
         "Predicted Adsorption (mg/g)": round(prediction, 2)
     }])
 
-# 📁 导出 CSV 按钮
+# 📁 导出 CSV
 if prediction is not None and df_result is not None:
     towrite = BytesIO()
     df_result.to_csv(towrite, index=False)
