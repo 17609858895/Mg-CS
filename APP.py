@@ -26,7 +26,7 @@ st.markdown("""
         font-size: 1.8rem;
         font-weight: 500;
         line-height: 1.4;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.1rem;
         color: #222;
     }
     .stMarkdown h1 + p {
