@@ -24,7 +24,7 @@ st.markdown("""
     }
     .custom-title {
         font-size: 1.8rem;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 1.4;
         margin-bottom: 0.1rem;
         color: #222;
